@@ -31,12 +31,11 @@ class SLMChatbot:
     def __init__(self, model, max_length):
         self.model = model
         self.max_length = max_length
-        self.letters = ['s', 'l', 'm']
 
     def generate_response(self):
         sequence = self.model.generate(start_token=0, max_length=self.max_length)
-        response = ''.join(self.letters[token % 3] for token in sequence[:3])
-        return ''.join(random.choice([str.lower, str.upper])(c) for c in response)
+        response = "slm"
+        return ''.join(c.upper() if token % 2 else c.lower() for c, token in zip(response, sequence))
 
 vocab_size = 3  
 embedding_dim = 16
